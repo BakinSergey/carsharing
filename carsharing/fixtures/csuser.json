@@ -1,0 +1,138 @@
+[
+  {
+    "model": "core.csuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "holder_1",
+      "first_name": "Иван",
+      "last_name": "ХозяинАвто",
+      "email": "holder_1@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "ru",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "renter_1",
+      "first_name": "Павел",
+      "last_name": "Арендов",
+      "email": "renter_1@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "ru",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "holder_2",
+      "first_name": "Паша",
+      "last_name": "Завгарычев",
+      "email": "holder_2@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "ru",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "renter_2",
+      "first_name": "Василий",
+      "last_name": "Арендов-Задунайский",
+      "email": "renter_2@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "ru",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "holder_en",
+      "first_name": "Fabricio",
+      "last_name": "Werdoom",
+      "email": "FW@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "en",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "renter_en",
+      "first_name": "Jhon",
+      "last_name": "McLaren",
+      "email": "JM@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "en",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$URpVCAMr6SBZ$ESHx6xNgcO238E6gvut5Dt+IKTvDEBF9UANaNYmvBcE=",
+      "is_superuser": false,
+      "username": "operator_1",
+      "first_name": "Алексей",
+      "last_name": "Операторов",
+      "email": "operator_1@email.ru",
+      "is_staff": false,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "ru",
+      "user_info": {}
+    }
+  },
+  {
+    "model": "core.csuser",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$aRsbbU3fzEO3$0BnhYggKDX4GVFS+jwE7U7qX/hxuzzAre7IYX0e4nwE=",
+      "is_superuser": true,
+      "username": "car",
+      "first_name": "Admin",
+      "last_name": "Adminoff",
+      "email": "admin@email.ru",
+      "is_staff": true,
+      "avatar": "./user/logo/default.png",
+      "is_active": true,
+      "lang": "en",
+      "user_info": {}
+    }
+  }
+]

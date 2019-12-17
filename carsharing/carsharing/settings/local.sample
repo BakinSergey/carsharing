@@ -1,0 +1,69 @@
+from carsharing.settings import *
+
+DEBUG = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'car',
+        'USER': 'car_user',
+        'PASSWORD': '321',
+        'HOST': 'localhost',
+        'PORT': 5432,
+        #'ATOMIC_REQUESTS': True,
+    },
+    # 'geo': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'geo',
+    #     'USER': 'car_user',
+    #     'PASSWORD': '321',
+    #     'HOST': 'localhost',
+    #     'PORT': 3306,
+    # }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+DEFAULT_FROM_EMAIL = 'CarSharing <car-sharing@gmail.com>'
+ADMIN_EMAIL = 'admin@car-sharing.ru'
+EMAIL_FILE_PATH = 'tmp_files/email-messages/'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost'
+]
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost'
+]
+
+INSTALLED_APPS += (
+     #'django_extensions',
+     # 'debug_toolbar',
+)
+
+# MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'handlers': {
+        'file_info': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'tmp_files', 'my_debug.log')
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['file_info'],
+        },
+    }
+}
+
