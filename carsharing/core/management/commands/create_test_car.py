@@ -22,6 +22,10 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Command(BaseCommand):
+    # потенциальные владельцы тестовых машин
+    group = models.Group.objects.get(name='holder')
+    holders = group.user_set.all()
+
     def add_arguments(self, parser):
         # Named (optional) arguments
         parser.add_argument(
@@ -40,17 +44,19 @@ class Command(BaseCommand):
         )
 
     base_colors = (
-        _(u'красный'), _(u'оранжевый'), _(u'желтый'), _(u'знать'), _(u'голубой'), _(u'синий'), _(u'фиолтетовый'),)
+        _(u'красный'), _(u'оранжевый'), _(u'желтый'), _(u'зеленый'), _(u'голубой'), _(u'синий'), _(u'фиолетовый'),)
 
     vaz_colors = (_('Белый "Ледниковый" (221)'), _('Оранжевый "Марс" (130)'), _('Красный "Сердолик" (195)'),
-                  _('Коричневый "Ангкор" (246)'), _('Серо-бежевый "Карфаген" (247) '), _('Ярко-синий "Дайвинг" (476)'),
-                  _('Серо-голубой "Фантом" (496)'), _('Серый "Плутон" (608)'), _('Черный "Маэстро" (653) '),
-                  _('Серебристый "Платина" (691)'))
+                  _('Коричневый "Ангкор" (246)'), _('Серо-бежевый "Карфаген" (247)'), _('Ярко-синий "Дайвинг" (476)'),
+                  _('Серо-голубой "Фантом" (496)'), _('Серый "Плутон" (608)'), _('Черный "Маэстро" (653)'),
+                  _('Серебристый "Платина" (691)'), _('вишня')
+                  )
 
     car_models = (
         _(u'Лада Гранта'), _(u'Лада Приора'), _(u'Touareg'), _(u'Toyota Prado'),
         _(u'Авто Москвич'), _(u'Запорожец'), _(u'Лада Веста'), _(u'УАЗ 469'),
-        _(u'Волга Siber'), _(u'Porcshe Cayenne'), _(u'Porcshe Panamera')
+        _(u'Волга Siber'), _(u'Porcshe Cayenne'), _(u'Porcshe Panamera'),
+        _(u'cherry_7')  # вишневая семерка, неоновые фары, на стеклах тонировка в гудрон
     )
 
     @staticmethod
@@ -67,10 +73,8 @@ class Command(BaseCommand):
         random_second = randrange(int_delta)
         return d1 + timedelta(seconds=random_second)
 
-    def generate_car_params(self, carmodel):
 
-        group = models.Group.objects.get(name='holder')
-        holders = group.user_set.all()
+    def generate_car_params(self, carmodel):
 
         self.car['params'] = {}
         self.car['params'].update(
@@ -79,7 +83,7 @@ class Command(BaseCommand):
              'color': str(choice(self.base_colors + self.vaz_colors)),
              'engine_vol': choices(
                  population=(0.8, 0.9, 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.4, 2.6, 3.0),
-                 weights=(0.1, 0.1, 0.1, 0.1, 0.2, 0.4, 0.6, 0.4, 0.2, 0.1, 0.1, 0.1),
+                 weights=   (0.1, 0.1, 0.1, 0.1, 0.2, 0.4, 0.6, 0.4, 0.2, 0.1, 0.1, 0.1),
                  k=1)[0],
              'transmission': choice(('5x', '6x',)),
              'trank_vol': choice(('400L', '500L', '600L', '700L', '800L',))}
@@ -95,9 +99,34 @@ class Command(BaseCommand):
             'base_rate': 100 if self.car['params']['engine_vol'] < 1.6 else 200,
             'desc': str(_('описание машины')),
 
-            'owner_id': choice(holders).pk,
+            'owner_id': choice(self.holders).pk,
         })
 
+    def create_cherry_7_with_neon_headlights(self, carmodel):
+
+        self.car['params'] = {}
+        self.car['params'].update(
+            {
+             'model': str(carmodel),
+             'color': 'вишня',
+             'engine_vol': 1.6,
+             'transmission': '5x',
+             'trank_vol': '400L',
+            }
+        )
+
+        self.car.update({
+            'is_single_color': True,
+            'with_graffity': True,
+            'is_pumped': True,
+            'give_to_rent': True,
+            'release_year': 2019,
+            'append_date': self.random_date(),
+            'base_rate': 200,
+            'desc': str(_('Вишневая семерка, неоновые фары, на стеклах тонировка, ВиШнЕвАя СЕмеРКа!')),
+
+            'owner_id': choice(self.holders).pk,
+        })
 
     def handle(self, **options):
         cars = []
@@ -107,10 +136,13 @@ class Command(BaseCommand):
         for c in range(carcount):
             self.car = {}
             carmodel = choice(self.car_models) if not options.get('model') else options.get('model')
-            self.generate_car_params(carmodel)
+            if carmodel == 'cherry_7':
+                self.create_cherry_7_with_neon_headlights(carmodel)
+            else:
+                self.generate_car_params(carmodel)
 
             new_car = Car.objects.create(**self.car)
-            print(self.car)
+            # print(self.car)
 
             exterior_images = ExteriorGallery.add_sample_image(1, carmodel, (320, 240))
             interior_images = InteriorGallery.add_sample_image(1, carmodel + 'салон', (320, 240))

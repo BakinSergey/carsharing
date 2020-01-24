@@ -87,6 +87,7 @@ class Car(models.Model):
     class Meta:
         verbose_name = _(u'Авто')
         verbose_name_plural = _(u'Авто')
+        get_latest_by = 'append_date'
 
     year_choices = [(r, r) for r in range(1984, datetime.now().year + 1)]
     current_year = datetime.now().year
@@ -101,7 +102,7 @@ class Car(models.Model):
     is_pumped = models.BooleanField(verbose_name=_(u'Прокачана?'), default=False)
 
     params = JSONField(verbose_name=_(u'Характеристики'), default=dict, blank=True)
-    desc = models.CharField(verbose_name=_(u'Дополнительное описание'), max_length=30, blank=False)
+    desc = models.CharField(verbose_name=_(u'Дополнительное описание'), max_length=120, blank=False)
 
     base_rate = models.FloatField(verbose_name=_(u'Базовая цена аренды, за 1 час'),
                                   validators=(MinValueValidator(0),), blank=False)

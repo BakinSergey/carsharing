@@ -23,10 +23,15 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.decorators.cache import never_cache
 from django.contrib.staticfiles.views import serve
 
-
+from core.views import IndexView, AddCarView, DelAllCarView, EditGarageView,fifteen
 
 urlpatterns = [
+    path('', IndexView.as_view(), name='index'),
     path('admin/', admin.site.urls),
+    path('add_car/', AddCarView.as_view(), name="ajax_add_car"),
+    path('del_all_car/', DelAllCarView.as_view(), name="ajax_del_car"),
+    path('edit_garage/', EditGarageView.as_view(), name="edit_garage"),
+    path('15/', fifteen.as_view(), name="fif"),
 ]
 
 

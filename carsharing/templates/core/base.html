@@ -1,0 +1,150 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome 4.7.1 -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'vendor/jquery-ui/jquery-ui.min.css' %}">
+    <!-- animation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3/animate.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+
+    <title>{{ hi }}</title>
+</head>
+
+<body>
+
+<h2>{{ hi }}</h2>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+{#cdn swal2#}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<!-- ####################################################################### -->
+
+<!-- blockUI -->
+<script src="{% static 'vendor/jquery/jquery.blockUI.js' %}"></script>
+<!-- jQueryUI -->
+<script type="text/javascript" src="{% static 'vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+
+<!-- List.js -->
+<script src="{% static 'vendor/jlist/jquery.jlist.js' %}"></script>
+
+
+<!-- ####################################################################### -->
+
+<script type="text/javascript" src="{% static 'js/core/base.js' %}"></script>
+{#<script type="text/template" id="garage">{% include 'core/_modal_garage_edit.html' %}</script>#}
+
+
+{% block page %}
+
+    <div class="alert alert-primary" role="alert">
+        Django, AsyncIO, Bootstrap, jQuery
+    </div>
+
+    {# подключаем шаблон гаража, к-й будем заполнять таблицей в base.js по клику на $(".show_garage") #}
+    {% block modals %}
+        {% include 'core/_modal_garage_edit.html' %}
+    {% endblock modals %}
+
+
+    {#  add test car, add user car, select, delete, car  #}
+    <div class="container">
+
+        <div class="row">
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    ## Список Авто ##
+                </button>
+                <div class="dropdown-menu dropdown-menu-left" id="dropmenu">
+                </div>
+            </div>
+
+            <div class="col">
+                <button id="add_car" type="button" title="Сгенерировать авто со случайными параметрами"
+                        class="btn btn-dark btn-flat btns">
+                    <i class="fa fa-plus-square">&nbsp</i>
+                    test car
+                </button>
+            </div>
+
+            <div class="col">
+                <button id="add_cherry_7" type="button" title="Создать ВиШнЕвУю семерку 2019 года"
+                        class="btn btn-dark btn-flat btns">
+                    <i class="fa fa-plus-square">&nbsp</i>
+                    cherry_7_2019
+                </button>
+            </div>
+
+            <div class="col">
+                <button id="show_garage" type="button" title="Показать все машины"
+                        class="btn btn-dark btn-flat btns">
+                    <i class="fa fa-table">&nbsp</i>
+                    garage
+                </button>
+            </div>
+
+            <div class="col">
+                <button id="del_car" type="button" title="Удалить все машины"
+                        class="btn btn-dark btn-flat btns">
+                    <i class="fa fa-trash">&nbsp</i>
+                    all cars
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+
+{% endblock page %}
+
+<script>
+
+    // urls for ajax requests
+    $.ajax_add_car_url = '{% url 'ajax_add_car' %}';
+    $.ajax_del_car_url = '{% url 'ajax_del_car' %}';
+    $.show_garage_url = '{% url 'edit_garage' %}';
+
+    // get data from view context
+    $('#dropmenu').append({{ cars | safe }});
+
+    // set global vars
+    current_cars = {{ cars_info | safe }}; // data['cars_info'];
+
+    // write car count on dropdown button
+    write_car_list_text();
+
+</script>
+
+</body>
+
+</html>

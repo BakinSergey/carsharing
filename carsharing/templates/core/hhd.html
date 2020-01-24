@@ -1,0 +1,26 @@
+{% load staticfiles i18n %}
+
+<div class="material-card-properties">
+    <table>
+        <thead>
+        <tr>
+            <td style="width: 50%">Свойство</td>
+            <td style="width: 50%">Значение</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key,data in model_data.items %}
+            <tr class="property-group" data-group-class="group-{{ forloop.counter }}">
+                <td colspan="2">{{ key }}</td>
+            </tr>
+            {% for values in data %}
+                <tr class="group-{{ forloop.parentloop.counter }}" style="display: table-row;">
+                    <td>{{ values.0 }}</td>
+                    <td>{{ values.1 }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>

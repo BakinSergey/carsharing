@@ -1,0 +1,8 @@
+.btns{
+    width: 100%;
+    border: 2px solid chartreuse;
+}
+
+table td, table th {
+  padding:5px;
+}

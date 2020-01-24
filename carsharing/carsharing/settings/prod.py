@@ -5,7 +5,7 @@ env.read_envfile()
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['carsharing.ru', '0.0.0.0', 'localhost', '170.120.100.200']
+ALLOWED_HOSTS = ['1a2fd384.ngrok.io', '0.0.0.0', 'localhost', '170.120.100.200']
 
 DATABASES = {
     'default': {
